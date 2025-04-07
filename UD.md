@@ -24,6 +24,13 @@ Multiple key-value pairs are separated by spaces. Unlike User-Agent2, forward sl
 - `Bot`: Indicates an automated client
 - `Compatibility-Mode`: Emulation or compatibility settings
 
+## Compatibility Guidance
+- Include only the technical details needed for compatibility decisions
+- Omit data already available in User-Agent2
+- For transitional compatibility, maintain critical legacy tokens
+- Version numbers should match corresponding components in User-Agent2
+- When engines have relationships (like "KHTML/Similar-Gecko"), always include both parts
+
 ## Legacy Information
 User-Data is the appropriate place to maintain information from traditional User-Agent strings that isn't directly about identity or capabilities but may be used by legacy systems for compatibility decisions.
 

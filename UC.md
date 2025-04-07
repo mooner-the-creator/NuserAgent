@@ -8,6 +8,20 @@ User-Capabilities explicitly indicates which web technologies and features the c
 Space-separated list of supported capabilities:
 `Capability1 Capability2 Capability3`
 
+## Relationship with Feature Detection
+User-Capabilities complements client-side feature detection:
+- Server uses User-Capabilities for initial content decisions
+- Client refines experience using feature detection
+- Both mechanisms work together to optimize the user experience
+
+User-Capabilities should reflect actual support, not theoretical capabilities based on version numbers.
+
+## Capability Naming Conventions
+- Use singular nouns for discrete capabilities (e.g., "Canvas" not "Canvases")
+- Use PascalCase for multi-word capabilities (e.g., "LocalStorage")
+- When appropriate, use plus sign for related features (e.g., "Background+Sounds")
+- Capabilities should represent concrete features, not abstract concepts
+
 ## Standard Properties
 
 ### CSS Support

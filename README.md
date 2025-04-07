@@ -7,6 +7,20 @@ NuserAgent is a modern alternative to the traditional User-Agent header, designe
 
 Each key-value pair is separated by a forward slash. The value may contain a plus sign (+) to represent spaces. Version information follows the key after an equals sign.
 
+## Parsing Guidelines
+- Parse each header independently rather than treating them as one unit
+- Fall back gracefully when some headers are missing
+- Handle unknown keys by ignoring them rather than rejecting the entire string
+- Extract only the information needed for your specific use case
+- Maintain a mapping between traditional User-Agent patterns and their NuserAgent equivalents
+
+## Extensibility Guidelines
+- Vendors may add custom components using their namespace prefix
+- Custom components should follow the Key=Value pattern
+- New standard keys should be proposed to the NuserAgent community
+- Version specifications should always follow semantic versioning practices
+- Reserved characters: forward slash (/), equals sign (=), plus sign (+)
+
 ## Header Structure
 - [User-Agent2](UA2.md): Core information about the client application, device, and platform
 - [User-Data](UD.md): Additional technical details that help with compatibility assessment
@@ -15,11 +29,26 @@ Each key-value pair is separated by a forward slash. The value may contain a plu
 ## Backward Compatibility
 NuserAgent maintains backward compatibility by introducing new headers rather than replacing the existing User-Agent header. Systems can continue using the traditional User-Agent header while gradually adopting NuserAgent headers when available.
 
+## Migration Path for Services
+1. Accept both traditional User-Agent and NuserAgent headers
+2. Initially parse only User-Agent2 and fall back to traditional User-Agent parsing
+3. Add User-Capabilities parsing to enable feature-specific optimizations
+4. Add User-Data parsing to handle edge cases
+5. When sufficient adoption exists, consider prioritizing decisions based on NuserAgent headers
+
 ## Implementation Guide
 Browsers and clients can implement NuserAgent by:
 1. Continuing to send the traditional User-Agent header
 2. Adding the three new headers with structured information
 3. Ensuring consistent mapping between traditional and new formats
+
+## Implementation Priority
+When implementing NuserAgent, consider adopting headers in this recommended order:
+1. First: User-Agent2 - Provides core identity information
+2. Second: User-Capabilities - Enables feature-based content decisions
+3. Third: User-Data - Supports legacy compatibility needs
+
+This prioritization helps services gradually transition while maximizing benefits.
 
 ## Benefits
 - Eliminates the need for complex User-Agent parsing libraries
