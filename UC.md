@@ -1,83 +1,75 @@
-# UC.md
 # User-Capabilities
 
 ## Purpose
-User-Capabilities explicitly indicates which web technologies and features the client supports, allowing servers to make informed decisions about content delivery without relying on User-Agent sniffing.
+The `User-Capabilities` header provides a list of supported web features and technologies that can be used by servers to adapt responses to client capabilities.
 
 ## Format
-Space-separated list of supported capabilities:
-`Capability1 Capability2 Capability3`
+A whitespace-separated list of capabilities, e.g.:
 
-## Relationship with Feature Detection
-User-Capabilities complements client-side feature detection:
-- Server uses User-Capabilities for initial content decisions
-- Client refines experience using feature detection
-- Both mechanisms work together to optimize the user experience
+`"User-Capabilities"`: `"Cookies Frames Iframes JavaScript Tables CSS1 CSS2 CSS3"`
 
-User-Capabilities should reflect actual support, not theoretical capabilities based on version numbers.
+## Common Capabilities
 
-## Capability Naming Conventions
-- Use singular nouns for discrete capabilities (e.g., "Canvas" not "Canvases")
-- Use PascalCase for multi-word capabilities (e.g., "LocalStorage")
-- When appropriate, use plus sign for related features (e.g., "Background+Sounds")
-- Capabilities should represent concrete features, not abstract concepts
+### Scripting
+- `JavaScript`
+- `ES6`
 
-## Standard Properties
+### Layout
+- `Tables`
+- `Flexbox`
+- `Grid`
 
-### CSS Support
-- `CSS1`: Supports CSS Level 1
-- `CSS2`: Supports CSS Level 2
-- `CSS3`: Supports CSS Level 3
-- `CSS4`: Supports CSS Level 4
-
-### Content Structure
-- `Tables`: Supports HTML tables
-- `Frames`: Supports frame elements
-- `Iframes`: Supports inline frames
-
-### Programming
-- `JavaScript`: Supports JavaScript execution
-- `Java`: Supports Java applets
-- `ActiveX`: Supports ActiveX controls
-- `VBScript`: Supports Visual Basic Script
-
-### User Interaction
-- `Cookies`: Supports HTTP cookies
-- `LocalStorage`: Supports Web Storage API (localStorage)
-- `SessionStorage`: Supports Web Storage API (sessionStorage)
-- `ServiceWorker`: Supports Service Worker API
-- `Touch`: Supports touch events
-- `Pointer`: Supports pointer events
-- `Gamepad`: Supports gamepad input
+### Styles
+- `CSS1`, `CSS2`, `CSS3`, `CSS4`
+- `DarkMode`
+- `CustomProperties`
 
 ### Media Capabilities
-- `Canvas`: Supports Canvas API
-- `WebGL`: Supports WebGL
-- `WebGL2`: Supports WebGL 2
-- `Audio`: Supports HTML5 audio
-- `Video`: Supports HTML5 video
-- `MediaRecorder`: Supports MediaRecorder API
-- `Background+Sounds`: Supports background audio
+- `Audio`
+- `Video`
+- `Autoplay`
+- `WebGL`
+- `WebGL2`
+- `MediaSource`
+
+### Device Features
+- `Touch`
+- `Mouse`
+- `Controller`
+- `Keyboard`
+- `Voice`
+- `Orientation`
+- `Geolocation`
+
+### Input Types
+- `Range`
+- `Date`
+- `Color`
+- `File`
+
+### Storage and Data APIs
+- `Cookies`
+- `LocalStorage`
+- `SessionStorage`
+- `IndexedDB`
+- `FileSystemAccess`
 
 ### Modern Web Features
-- `WebAssembly`: Supports WebAssembly
-- `WebRTC`: Supports WebRTC
-- `WebSockets`: Supports WebSockets
-- `WebWorkers`: Supports Web Workers
-- `WebComponents`: Supports Web Components
-- `Fetch`: Supports Fetch API
-- `Geolocation`: Supports Geolocation API
+- `WebRTC`
+- `ServiceWorker`
+- `PushAPI`
+- `Notifications`
+- `Clipboard`
+- `Fullscreen`
+- `WebXR`
+- `PWA`
+- `SpeechRecognition`
 
-## Usage Examples
+## Extensibility
+Vendors may append custom capabilities using a namespace prefix, e.g., `AcmeCorp-XYZFeature`.
 
-### Modern Desktop Browser
-`Cookies Frames Iframes JavaScript Tables CSS1 CSS2 CSS3 LocalStorage SessionStorage Canvas WebGL Audio Video Fetch WebSockets WebWorkers WebComponents ServiceWorker Pointer`
+## Examples
 
-### Mobile Browser with Limited Support
-`Cookies JavaScript Tables CSS1 CSS2 CSS3 LocalStorage SessionStorage Canvas Audio Video Touch Fetch`
-
-### Simple Bot or Crawler
-`nil` or `JavaScript CSS1 CSS2`
-
-### Legacy Browser
-`Cookies Frames JavaScript Tables CSS1 CSS2 Java`
+- `"User-Capabilities"`: `"Cookies Frames JavaScript CSS3 Grid WebGL WebRTC PushAPI Touch"`
+- `"User-Capabilities"`: `"JavaScript ServiceWorker WebGL2 Orientation Voice SpeechRecognition"`
+- `"User-Capabilities"`: `nil`

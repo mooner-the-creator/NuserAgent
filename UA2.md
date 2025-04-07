@@ -1,4 +1,3 @@
-# UA2.md
 # User-Agent2
 
 ## Format Specification
@@ -13,7 +12,7 @@
 - Platform details including version (e.g., `Windows=10.0`, `iOS=14.5`)
 - Architecture (e.g., `32-bit`, `64-bit`, `ARM`, `ARM64`)
 - Manufacturer (e.g., `Microsoft+Corporation`, `Apple+Inc`)
-- Device type (e.g., `Desktop`, `Mobile`, `Tablet`, `Game+Console`)
+- Device type (e.g., `Desktop`, `Mobile`, `Tablet`, `Game+Console`, `TV/Smart`, `TV/Stick`)
 - Input method (e.g., `Mouse`, `Touch`, `Voice`, `Controller`)
 
 ## Version Format
@@ -36,6 +35,12 @@
 
 ### Game Console Browser
 `UA2=1.0.0 EdgeBrowser=103.0.1264/Microsoft+Corporation Browser/EdgeHTML PlayStation=5/AMD+Ryzen/Sony Game+Console/Controller`
+
+### Smart TV
+`UA2=1.0.0 WebOSBrowser=4.8.0/LG+Electronics Browser/WebKit Linux=4.14/ARM/LG TV/Smart/Remote+Pointer`
+
+### Streaming Stick
+`UA2=1.0.0 FireTV=7.6.2/Amazon+Inc. Browser/Chromium/Blink Android=9/ARM64/Amazon TV/Stick/Remote`
 
 ### IoT Device
 `UA2=1.0.0 SmartHome=3.2.1/Acme+Corp IoT+Client/Custom+Runtime Linux=5.10/ARM/Acme+Corp Embedded/Voice`

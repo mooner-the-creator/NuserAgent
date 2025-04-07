@@ -1,4 +1,5 @@
 # NuserAgent
+
 ## Introduction
 NuserAgent is a modern alternative to the traditional User-Agent header, designed to provide more structured, meaningful, and easily parsable client information. While the traditional User-Agent string has become overly complex and difficult to parse reliably, NuserAgent offers a clean solution without breaking backward compatibility.
 
@@ -26,6 +27,8 @@ Each key-value pair is separated by a forward slash. The value may contain a plu
 - [User-Data](UD.md): Additional technical details that help with compatibility assessment
 - [User-Capabilities](UC.md): Specific features and technologies supported by the client
 
+Example Device Types: Desktop, Mobile, Tablet, Game Console, TV/Smart, TV/Stick, Embedded, Wearable, VR
+
 ## Backward Compatibility
 NuserAgent maintains backward compatibility by introducing new headers rather than replacing the existing User-Agent header. Systems can continue using the traditional User-Agent header while gradually adopting NuserAgent headers when available.
 
@@ -50,6 +53,20 @@ When implementing NuserAgent, consider adopting headers in this recommended orde
 
 This prioritization helps services gradually transition while maximizing benefits.
 
+## Client Handling Strategy
+Services may encounter varying levels of support for NuserAgent headers. A recommended handling strategy is:
+
+1. Attempt to parse `User-Agent2`, falling back to traditional `User-Agent` only if necessary.
+2. If available, use `User-Capabilities` to inform feature-based delivery (e.g., avoid loading WebGL if unsupported).
+3. Parse `User-Data` only for compatibility shims or legacy behavior.
+4. When all headers are present and valid, prioritize decisions based on NuserAgent.
+
+## Privacy Considerations
+NuserAgent is designed to minimize fingerprinting risk by structuring known, already-exposed data. While it enables clearer feature targeting, implementers should:
+- Avoid logging excessive detail unless necessary
+- Offer users opt-outs for headers exposing hardware capabilities
+- Treat `User-Capabilities` as transient and avoid long-term storage unless consent is given
+
 ## Benefits
 - Eliminates the need for complex User-Agent parsing libraries
 - Reduces server-side processing for client detection
@@ -60,19 +77,20 @@ This prioritization helps services gradually transition while maximizing benefit
 ## Examples
 ### Example 1: Browser
 #### Before
-`User-Agent`: `"Mozilla/5.0 (Windows NT 10.0;) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.146 Safari/537.36 Lovense/30.6.2"`
+`"User-Agent"`: `"Mozilla/5.0 (Windows NT 10.0;) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.146 Safari/537.36 Lovense/30.6.2"`
 #### After
-`User-Agent2`: `"UA2=1.0.0 Lovense=30.6.2/Hytto+Ltd. Browser/Chrome=88.0.4324/Blink KHTML/Similar-Gecko Windows=10.0/32-bit/Microsoft+Corporation Desktop/Mouse"`  
-`User-Data`: `"UA2=1.0.0 Mozilla=5.0 AppleWebKit=537.36 Chrome=88.0.4324 KHTML/Similar-Gecko"`  
-`User-Capabilities`: `"Cookies Frames Iframes JavaScript Tables CSS1 CSS2 CSS3"`
+`"User-Agent2"`: `"UA2=1.0.0 Lovense=30.6.2/Hytto+Ltd. Browser/Chrome=88.0.4324/Blink KHTML/Similar-Gecko Windows=10.0/32-bit/Microsoft+Corporation Desktop/Mouse"`  
+`"User-Data"`: `"UA2=1.0.0 Mozilla=5.0 AppleWebKit=537.36 Chrome=88.0.4324 KHTML/Similar-Gecko"`  
+`"User-Capabilities"`: `"Cookies Frames Iframes JavaScript Tables CSS1 CSS2 CSS3"`
 #### Sources
 https://user-agents.net/string/mozilla-5-0-windows-nt-10-0-applewebkit-537-36-khtml-like-gecko-chrome-88-0-4324-146-safari-537-36-lovense-30-6-2
+
 ### Example 2: Crawler
 #### Before
-`User-Agent`: `"DocBase Crawler/1.0"`
+`"User-Agent"`: `"DocBase Crawler/1.0"`
 #### After
-`User-Agent2`: `"UA2=1.0.0 DocBase+Crawler=1.0/DocBase Bot/Crawler"`  
-`User-Data`: `"UA2=1.0.0 Crawler"`  
-`User-Capabilities`: `nil`
+`"User-Agent2"`: `"UA2=1.0.0 DocBase+Crawler=1.0/DocBase Bot/Crawler"`  
+`"User-Data"`: `"UA2=1.0.0 Crawler"`  
+`"User-Capabilities"`: `nil`
 #### Sources
 https://user-agents.net/string/docbase-crawler-1-0
